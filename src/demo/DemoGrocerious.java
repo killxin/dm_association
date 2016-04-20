@@ -6,9 +6,9 @@ import data_preprocessing.Preprocessing;
 import fpgrowth_association.FPgrowth;
 
 
-public class Demo {
+public class DemoGrocerious {
 	public static void main(String[] args) {
-		Preprocessing dp = new Preprocessing("src//demo//Groceries.csv");
+		Preprocessing dp = new Preprocessing("dataset//Groceries.csv");
 		System.out.println("=========Apriori========");
 		float mins = 0.01f * dp.count;
 		Apriori ap = new Apriori(dp, mins, 0.5f);

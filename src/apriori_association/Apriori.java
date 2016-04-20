@@ -15,6 +15,8 @@ public class Apriori {
 	private float min_sup = 0;
 	private float min_conf = 0;
 
+	public List<String> rules = null;
+	
 	public Apriori(Preprocessing dp, float mins, float minc) {
 		CL = new ArrayList<Map<Set<String>, Integer>>();
 		data = dp.data;
@@ -90,6 +92,7 @@ public class Apriori {
 	}
 
 	public void generate_rule() {
+		rules = new ArrayList<String>();
 		for (int i = 1; i < CL.size(); i++) {
 			Map<Set<String>, Integer> l = CL.get(i);
 			for (Set<String> sl : l.keySet()) {
@@ -99,7 +102,8 @@ public class Apriori {
 						if (sl.containsAll(ss)) {
 							float conf = (float) l.get(sl) / (float) s.get(ss);
 							if (conf >= min_conf) {
-								print_rule(sl, ss, conf);
+								String rule = print_rule(sl, ss, conf);
+								rules.add(rule);
 							}
 						}
 					}
@@ -108,20 +112,22 @@ public class Apriori {
 		}
 	}
 
-	private void print_rule(Set<String> sl, Set<String> ss, float conf) {
+	private String print_rule(Set<String> sl, Set<String> ss, float conf) {
+		String rule = new String();
 		Set<String> l_s = new TreeSet<String>();
 		l_s.addAll(sl);
 		l_s.removeAll(ss);
-		System.out.print("{");
+		rule += "{";
 		for (String str : ss) {
-			System.out.print(str + ",");
+			rule += str+",";
 		}
-		System.out.print("} => {");
+		rule += "} => {";
 		for (String str : l_s) {
-			System.out.print(str + ",");
+			rule += str+",";
 		}
-		System.out.print("}");
-		System.out.println(", conf = " + conf);
+		rule += "}";
+		System.out.println(rule+", conf = " + conf);
+		return rule;
 	}
 
 	public void print_frequent_subset() {
