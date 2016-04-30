@@ -17,6 +17,8 @@ public class FPgrowth {
 	private float min_conf = 0;
 	private FPTree whole = null;
 
+	public int num_fre = 0;
+	
 	public FPgrowth(Preprocessing dp, float mins, float minc) {
 		whole = new FPTree(dp, mins);
 		min_sup = mins;
@@ -67,6 +69,7 @@ public class FPgrowth {
 	public void fp_growth() {
 		List<String> pattern = new ArrayList<String>();
 		fp_growth(whole, pattern);
+		num_fre = CL.size();
 	}
 
 	private void fp_growth(FPTree root, List<String> pattern) {

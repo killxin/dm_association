@@ -14,6 +14,8 @@ public class Apriori {
 	private Map<String, List<Integer>> data = null;
 	private float min_sup = 0;
 	private float min_conf = 0;
+	
+	public int num_fre = 0;
 
 	public List<String> rules = null;
 	
@@ -35,6 +37,7 @@ public class Apriori {
 			}
 		}
 		CL.add(L1);
+		num_fre+=L1.size();
 		for (int k = 1;; k++) {
 			Map<Set<String>, Integer> C = supset_gen(k);
 			Map<Set<String>, Integer> L = new HashMap<Set<String>, Integer>();
@@ -59,6 +62,7 @@ public class Apriori {
 				break;
 			}
 			CL.add(L);
+			num_fre+=L.size();
 		}
 	}
 
